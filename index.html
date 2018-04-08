@@ -7,35 +7,44 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Twitchtv JSON API</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://zavoloklom.github.io/material-design-iconic-font/css/docs.md-iconic-font.min.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 
 <body>
   <nav class="top">
+    <h2>Twitch Streamers</h2>
     <div class="dropdownBackground">
       <span class="arrow">
       </span>
     </div>
     <ul class="tabs">
       <li>
-        <a href="#" class="all">ALL</a>
+        <a href="#" class="all active">ALL</a>
         <div class="dropdown"></div>
       </li>
       <li>
-        <a href="#" class="offline">OFFLINE</a>
+        <a href="#" class="offline inactive">OFFLINE</a>
         <div class="dropdown"></div>
       </li>
       <li>
-        <a href="#" class="online">ONLINE</a>
+        <a href="#" class="online inactive">ONLINE</a>
         <div class="dropdown"></div>
       </li>
     </ul>
+    <div class='input-group' id='input-group'>
+      <input type='text' id='add-stream'>
+      <label>Add Stream</label>
+      </input>
+    </div>
+    <i class="fab add empty" id='add-button' tooltip="Add Stream">
+      <i class="prime zmdi animated rotateIn zmdi-plus"></i>
+    </i>
   </nav>
   <div class="container">
-    <h1>TWITCH STREAMERS</h2>
-      <div class="row">
-      </div>
+    <div class="row">
+    </div>
   </div>
   <script src="main.js"></script>
 </body>
