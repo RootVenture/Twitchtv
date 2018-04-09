@@ -1,69 +1,75 @@
 const streamers = [
-  'ESL_SC2',
-  'OgamingSC2',
-  'cretetion',
-  'freecodecamp',
-  'storbeck',
-  'habathcx',
-  'RobotCaleb',
-  'noobs2ninjas',
-  'DrDisRespectLIVE'
+  "ESL_SC2",
+  "OgamingSC2",
+  "cretetion",
+  "freecodecamp",
+  "storbeck",
+  "habathcx",
+  "RobotCaleb",
+  "noobs2ninjas",
+  "DrDisRespectLIVE"
 ];
-const onlineUsers = [];
-const offlineUsers = [];
+let onlineUsers = [];
+let offlineUsers = [];
 
-const all = document.querySelector('.all');
-const offline = document.querySelector('.offline');
-const online = document.querySelector('.online');
-const result = document.querySelector('.row');
-const triggers = document.querySelectorAll('.tabs > li');
+const all = document.querySelector(".all");
+const offline = document.querySelector(".offline");
+const online = document.querySelector(".online");
+const result = document.querySelector(".row");
+const triggers = document.querySelectorAll(".tabs > li");
 // const arrow = document.querySelector('.arrow');
-const background = document.querySelector('.dropdownBackground');
-const nav = document.querySelector('.top');
-const addBtn = document.querySelector('#add-button');
-const addStream = document.querySelector('#add-stream');
-const label = document.querySelector('label');
-const inputGrp = document.querySelector('#input-group');
+const background = document.querySelector(".dropdownBackground");
+const nav = document.querySelector(".top");
+const addBtn = document.querySelector("#add-button");
+const addStream = document.querySelector("#add-stream");
+const label = document.querySelector("label");
+const inputGrp = document.querySelector("#input-group");
 
 // animate fab on click
-addBtn.addEventListener('click', e => {
-  if (addBtn.classList.contains('clicked') && inputGrp.classList.contains('visible')) {
-    addBtn.classList.remove('clicked');
-    inputGrp.classList.remove('visible');
+addBtn.addEventListener("click", e => {
+  if (
+    addBtn.classList.contains("clicked") &&
+    inputGrp.classList.contains("visible")
+  ) {
+    addBtn.classList.remove("clicked");
+    inputGrp.classList.remove("visible");
   } else {
-    addBtn.classList.add('clicked');
-    inputGrp.classList.add('visible');
+    addBtn.classList.add("clicked");
+    inputGrp.classList.add("visible");
   }
-  addStream.value = '';
+  addStream.value = "";
 });
 
 // animate fab on blur
-addStream.addEventListener('blur', e => {
-  addStream.value = '';
-  if (inputGrp.classList.contains('visible') && addBtn.classList.contains('clicked')) {
-    inputGrp.classList.remove('visible');
-    addBtn.classList.remove('clicked');
+addStream.addEventListener("blur", e => {
+  addStream.value = "";
+  if (
+    inputGrp.classList.contains("visible") &&
+    addBtn.classList.contains("clicked")
+  ) {
+    inputGrp.classList.remove("visible");
+    addBtn.classList.remove("clicked");
   } else {
-    inputGrp.classList.add('visible');
-    addBtn.classList.add('clicked');
+    inputGrp.classList.add("visible");
+    addBtn.classList.add("clicked");
   }
 });
 
 // animate input label and give input focus on click
-label.addEventListener('click', e => {
+label.addEventListener("click", e => {
   addStream.focus();
 });
 
-addStream.addEventListener('keypress', e => {
+addStream.addEventListener("keypress", e => {
   if (e.which === 13) {
     // store search terms
     const userSearch = addStream.value;
-    addStream.value = '';
+    addStream.value = "";
     // prevent page reload
     e.preventDefault();
     addStream.blur();
     if (streamers.includes(userSearch)) {
-      console.log('duplicate');
+      console.log("duplicate");
       return false;
     }
     streamers.push(userSearch);
@@ -79,7 +85,7 @@ addStream.addEventListener('keypress', e => {
 
 function generateOnlineCards(user) {
   result.insertAdjacentHTML(
-    'beforeend',
+    "beforeend",
     `
     <div class="card onlineStream">
 
@@ -88,7 +94,11 @@ function generateOnlineCards(user) {
           <p class="stream__name">${user.stream.channel.name}</p>
           <p class="stream__viewers">${user.stream.viewers} viewers</p>
           <div class="card__content">
-              <p>${user.stream.channel.status !== null ? user.stream.channel.status : 'OFFLINE'}</p>
+              <p>${
+                user.stream.channel.status !== null
+                  ? user.stream.channel.status
+                  : "OFFLINE"
+              }</p>
           </div>
           <button class="view"><a href="https://twitch.tv/${
             user.stream.channel.name
@@ -102,7 +112,7 @@ function generateOnlineCards(user) {
 
 function generateOfflineCards(user) {
   result.insertAdjacentHTML(
-    'beforeend',
+    "beforeend",
     `
     <div class="card offlineStream">
 
@@ -113,7 +123,9 @@ function generateOfflineCards(user) {
         <div class="card__content">
         <p>Stream is Offline</p>
       </div>
-      <button class="view"><a href="https://twitch.tv/${user.name}" target="_blank" rel="noopener">VIEW</a></button>
+      <button class="view"><a href="https://twitch.tv/${
+        user.name
+      }" target="_blank" rel="noopener">VIEW</a></button>
     </div>
 
     </div>
@@ -122,7 +134,7 @@ function generateOfflineCards(user) {
 }
 
 function isOffline(user) {
-  const userApi = 'https://wind-bow.glitch.me/twitch-api/users/';
+  const userApi = "https://wind-bow.glitch.me/twitch-api/users/";
   fetch(`${userApi}${user}`)
     .then(response => response.json())
     .then(data => generateOfflineCards(data))
@@ -130,7 +142,7 @@ function isOffline(user) {
 }
 
 function isOnline(user) {
-  const streamApi = 'https://wind-bow.glitch.me/twitch-api/streams/';
+  const streamApi = "https://wind-bow.glitch.me/twitch-api/streams/";
   const endpoint = `${streamApi}${user}`;
   fetch(endpoint)
     .then(response => response.json())
@@ -139,8 +151,10 @@ function isOnline(user) {
 }
 
 function populateAll(users) {
-  result.innerHTML = '';
-  const streamApi = 'https://wind-bow.glitch.me/twitch-api/streams/';
+  result.innerHTML = "";
+  onlineUsers = [];
+  offlineUsers = [];
+  const streamApi = "https://wind-bow.glitch.me/twitch-api/streams/";
   users.forEach(user => {
     const endpoint = `${streamApi}${user}`;
     fetch(endpoint)
@@ -162,7 +176,7 @@ function populateAll(users) {
 }
 
 async function checkAdd(user) {
-  const streamApi = 'https://wind-bow.glitch.me/twitch-api/streams/';
+  const streamApi = "https://wind-bow.glitch.me/twitch-api/streams/";
   const endpoint = `${streamApi}${user}`;
   await fetch(endpoint)
     .then(response => response.json())
@@ -180,61 +194,83 @@ async function checkAdd(user) {
     });
 }
 // vanilla JS document ready
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   populateAll(streamers);
 });
 
 function filterOff() {
-  all.classList.add('active');
-  offline.classList.remove('active');
-  online.classList.remove('active');
+  all.classList.add("active");
+  all.classList.remove("inactive");
+  offline.classList.remove("active");
+  offline.classList.add("inactive");
+  online.classList.remove("active");
+  online.classList.add("inactive");
+
   populateAll(streamers);
 }
 
 function filterOnline() {
-  result.innerHTML = '';
-  online.classList.add('active');
-  offline.classList.remove('active');
-  all.classList.remove('active');
+  result.innerHTML = "";
+  online.classList.add("active");
+  online.classList.remove("inactive");
+  offline.classList.remove("active");
+  offline.classList.add("inactive");
+  all.classList.remove("active");
+  all.classList.add("inactive");
   onlineUsers.forEach(user => {
     isOnline(user);
   });
 }
 
 function filterOffline() {
-  result.innerHTML = '';
+  result.innerHTML = "";
+  offline.classList.add("active");
+  offline.classList.remove("inactive");
+  online.classList.remove("active");
+  online.classList.add("inactive");
+  all.classList.remove("active");
+  all.classList.add("inactive");
   offlineUsers.forEach(user => {
     isOffline(user);
   });
 }
 
 function handleEnter() {
-  this.childNodes[1].style.backgroundColor = 'orange';
-  const dropdown = this.querySelector('.dropdown');
+  // this.childNodes[1].style.backgroundColor = 'orange';
+  const dropdown = this.querySelector(".dropdown");
   const dropdownCoords = dropdown.getBoundingClientRect();
   const navCoords = nav.getBoundingClientRect();
   // console.log(navCoords);
-  background.classList.add('open');
+  background.classList.add("open");
   // need to offset the dropdown by the nav size
   const coords = {
     // height: dropdownCoords.height,
     // width: dropdownCoords.width,
     top: dropdownCoords.top - navCoords.top + 30,
-    left: dropdownCoords.left - navCoords.left - 40,
+    left: dropdownCoords.left - navCoords.left - 40
   };
 
   // background.style.setProperty("width", `${coords.width}px`);
   // background.style.setProperty('height', `${coords.height}px`);
-  background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px`);
+  background.style.setProperty(
+    "transform",
+    `translate(${coords.left}px, ${coords.top}px`
+  );
 }
 
 function handleLeave() {
-  background.classList.remove('open');
-  this.childNodes[1].style.background = 'rgba(0, 0, 0, 0.2)';
+  background.classList.remove("open");
+  if (!this.childNodes[1].classList.contains("active")) {
+    this.childNodes[1].style.background = "rgba(0, 0, 0, 0.2)";
+  }
 }
 
-all.addEventListener('click', filterOff);
-online.addEventListener('click', filterOnline);
-offline.addEventListener('click', filterOffline);
-triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
-triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+all.addEventListener("click", filterOff);
+online.addEventListener("click", filterOnline);
+offline.addEventListener("click", filterOffline);
+triggers.forEach(trigger =>
+  trigger.addEventListener("mouseenter", handleEnter)
+);
+triggers.forEach(trigger =>
+  trigger.addEventListener("mouseleave", handleLeave)
+);
