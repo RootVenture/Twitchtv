@@ -7,7 +7,7 @@ const streamers = [
   'habathcx',
   'RobotCaleb',
   'noobs2ninjas',
-  'DrDisRespectLIVE',
+  'DrDisRespectLIVE'
 ];
 const onlineUsers = [];
 const offlineUsers = [];
@@ -27,7 +27,7 @@ const inputGrp = document.querySelector('#input-group');
 
 // animate fab on click
 addBtn.addEventListener('click', e => {
-  if (addBtn.classList.contains('clicked') && inputGrp.classList.add('visible')) {
+  if (addBtn.classList.contains('clicked') && inputGrp.classList.contains('visible')) {
     addBtn.classList.remove('clicked');
     inputGrp.classList.remove('visible');
   } else {
@@ -68,6 +68,7 @@ addStream.addEventListener('keypress', e => {
     }
     streamers.push(userSearch);
     const isUser = checkAdd(userSearch);
+    console.log(isUser);
     if (isUser) {
       populateAll(streamers);
     } else {
@@ -160,17 +161,17 @@ function populateAll(users) {
   });
 }
 
-function checkAdd(user) {
-  console.log('checking user');
+async function checkAdd(user) {
   const streamApi = 'https://wind-bow.glitch.me/twitch-api/streams/';
   const endpoint = `${streamApi}${user}`;
-  fetch(endpoint)
+  await fetch(endpoint)
     .then(response => response.json())
     .then(data => {
       if (data.stream) {
         console.log(data);
         return true;
       } else if (data.error) {
+        console.log(data.error);
         return false;
       }
     })
@@ -184,11 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function filterOff() {
+  all.classList.add('active');
+  offline.classList.remove('active');
+  online.classList.remove('active');
   populateAll(streamers);
 }
 
 function filterOnline() {
   result.innerHTML = '';
+  online.classList.add('active');
+  offline.classList.remove('active');
+  all.classList.remove('active');
   onlineUsers.forEach(user => {
     isOnline(user);
   });

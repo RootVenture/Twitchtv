@@ -40,8 +40,6 @@ nav h2 {
   left: 0;
   margin-top: 0;
   margin-bottom: 15px;
-  /* margin-left: 20px; */
-  /* margin-right: 20px; */
   position: absolute;
   font-weight: 400;
   color: #fff;
@@ -52,7 +50,7 @@ nav ul {
   margin: 0;
   padding: 75px 0 0 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .tabs > li > a {
@@ -118,6 +116,7 @@ nav ul {
   font-size: 1.5rem;
   text-align: left;
   padding-left: 10px;
+  padding-top: 24px;
 }
 
 .card__content {
@@ -134,13 +133,13 @@ img {
 }
 
 .stream__name {
-  font-size: 1.5rem;
   margin-bottom: 0;
 }
 
 .stream__viewers {
   font-size: 1rem;
   margin-top: 0;
+  color: #858586;
 }
 
 .container {
@@ -256,6 +255,7 @@ img {
   outline: none;
   border-color: #e51c23;
 }
+
 .fab {
   display: block;
   width: 56px;
@@ -277,6 +277,41 @@ img {
   font-size: 1.5rem;
 }
 
+@media (max-width: 800px) {
+  nav h2 {
+    bottom: 80px;
+    left: 10px;
+    margin: 0;
+  }
+  .tabs > li > a {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+
+  .fab {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    bottom: -20px;
+    font-size: 1.2rem;
+  }
+
+  .card__header {
+    font-size: 1.4rem;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 16px;
+  }
+
+  .stream__name {
+    margin-bottom: 0;
+  }
+
+  .stream__viewers {
+    font-size: 0.8rem;
+    margin-top: 0;
+  }
+}
 /*raise fab on hover */
 .fab:hover,
 .unclicked:hover {
