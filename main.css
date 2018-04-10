@@ -333,3 +333,16 @@ img {
   transform: translateX(-400px);
   transition: 0.3s;
 }
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-weight: 200;
+  color: #555555;
+  opacity: 0.75;
+  font-size: 100%;
+  text-align: center;
+  margin-top: 17%;
+  opacity: 0.95;
+}
